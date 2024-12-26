@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TP2_ISI_23014\TP2_ISI_23014.csproj" />
   </ItemGroup>
 
 </Project>
