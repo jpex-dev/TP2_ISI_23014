@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.ServiceModel;
-
+using System.Configuration;
 namespace ServicoWCFSoap
 {
     public class CarteiraService : IWcfCarteiraService
     {
-        private readonly string connectionString = "sua_connection_string_azure";
 
         public CarteiraService(string wcfEndpoint)
         {
             WcfEndpoint = wcfEndpoint;
         }
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlServerConnection"].ConnectionString;
 
         public string WcfEndpoint { get; }
 
