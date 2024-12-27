@@ -63,13 +63,14 @@ namespace ServicoWCFSoap
                 }
 
                 response.Investimentos = investimentos;
+                return response;
+
             }
             catch (Exception ex)
             {
                 throw new FaultException($"Erro ao processar a carteira: {ex.Message}");
             }
 
-            return response;
         }
     }
 }

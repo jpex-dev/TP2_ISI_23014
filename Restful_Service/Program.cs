@@ -1,5 +1,4 @@
 using Restful_Service.Services;
-using ServicoWCFSoap;  
 
 using WcfICarteiraService = ServicoWCFSoap.IWcfCarteiraService;
 
