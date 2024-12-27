@@ -22,8 +22,17 @@ namespace Restful_Service.Services
                 var endpoint = new EndpointAddress(new Uri(_wcfEndpoint));
                 var channelFactory = new ChannelFactory<ICarteiraService>(binding, endpoint);
 
+                //var serviceClient = channelFactory.CreateChannel();
+                //// Criando o cliente WCF a partir do ChannelFactory
                 var serviceClient = channelFactory.CreateChannel();
-                return await serviceClient.ObterCarteiraAsync(usuarioId);
+
+                // Executando a chamada assíncrona para obter a carteira
+                var response = await serviceClient.ObterCarteiraAsync(usuarioId);
+
+                // Fechar o cliente WCF após o uso
+                ((IClientChannel)serviceClient).Close();
+
+                return response;
             }
             catch (Exception ex)
             {

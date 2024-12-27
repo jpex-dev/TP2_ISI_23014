@@ -4,10 +4,10 @@ using System.ServiceModel;
 namespace ServicoWCFSoap
 {
     [ServiceContract]
-    public interface IWcfCarteiraService
+    public interface ICarteiraService
     {
         [OperationContract]
-        CarteiraResponse GetCarteira(int usuarioId);
+        CarteiraResponse  GetCarteira(int usuarioId);
     }
 
     public class CarteiraResponse

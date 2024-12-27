@@ -5,7 +5,7 @@ using System.ServiceModel;
 using System.Configuration;
 namespace ServicoWCFSoap
 {
-    public class CarteiraService : IWcfCarteiraService
+    public class CarteiraService : ICarteiraService
     {
 
         public CarteiraService(string wcfEndpoint)
@@ -13,10 +13,15 @@ namespace ServicoWCFSoap
             WcfEndpoint = wcfEndpoint;
         }
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["SqlServerConnection"].ConnectionString;
+        public CarteiraService()
+        {
+            // Defina um valor padrão ou recupere de configuração
+            WcfEndpoint = ConfigurationManager.AppSettings["WcfEndpoint"]; // Exemplo de configuração
+        }
 
         public string WcfEndpoint { get; }
 
-        public CarteiraResponse GetCarteira(int usuarioId)
+        public  CarteiraResponse GetCarteira(int usuarioId)
         {
             CarteiraResponse response = new CarteiraResponse();
             List<Investimento> investimentos = new List<Investimento>();

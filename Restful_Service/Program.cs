@@ -1,5 +1,5 @@
 using Restful_Service.Services;
-using WcfICarteiraService = ServicoWCFSoap.IWcfCarteiraService;
+//using WcfICarteiraService = ServicoWCFSoap.ICarteiraService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 // Configurar o CarteiraService
 builder.Services.AddScoped<ICarteiraService>(provider =>
 {
-    string wcfEndpoint = "http://localhost:5001/ServicoWCFSoap.svc";
+    string wcfEndpoint = "http://localhost:5002/ServicoWCFSoap.svc";
     return new CarteiraService(wcfEndpoint);
 });
 
