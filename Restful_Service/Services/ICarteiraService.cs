@@ -1,6 +1,5 @@
 ﻿using Restful_Service.Models;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace Restful_Service.Services
 {
@@ -9,7 +8,8 @@ namespace Restful_Service.Services
     public interface ICarteiraService
     {
         [OperationContract]
+        //[s(UriTemplate = "/obterCarteira/{usuarioId}", ResponseFormat = WebMessageFormat.Json)]
 
-        Task<CarteiraResponse> ObterCarteiraAsync(int usuarioId);
+        Task<CarteiraResponse> ObterCarteiraAsync(int usuarioId,string moedaPretendida);
     }
 }

@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 // Configurar o CarteiraService
 builder.Services.AddScoped<ICarteiraService>(provider =>
 {
-    string wcfEndpoint = "http://localhost:5002/ServicoWCFSoap.svc";
+    string wcfEndpoint = "http://localhost:5000/ServicoWCFSoap.svc";
     return new CarteiraService(wcfEndpoint);
 });
 

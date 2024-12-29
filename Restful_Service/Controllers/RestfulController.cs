@@ -16,11 +16,12 @@ namespace Restful_Service.Controllers
         }
 
         [HttpGet("{usuarioId}")]
-        public async Task<IActionResult> ObterCarteiraAsync(int usuarioId)
+        [HttpGet("{usuarioId}/{moedaPretendida?}")]
+        public async Task<IActionResult> ObterCarteiraAsync(int usuarioId, string? moedaPretendida)
         {
             try
             {
-                var carteiraResponse = await _carteiraService.ObterCarteiraAsync(usuarioId);
+                var carteiraResponse = await _carteiraService.ObterCarteiraAsync(usuarioId, moedaPretendida);
 
                 // Retornar a resposta com o código 200 OK
                 return Ok(carteiraResponse);

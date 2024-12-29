@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="8.1.1" />
+    <PackageReference Include="System.ServiceModel.Web" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
