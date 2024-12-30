@@ -11,5 +11,6 @@ namespace Restful_Service.Services
         //[s(UriTemplate = "/obterCarteira/{usuarioId}", ResponseFormat = WebMessageFormat.Json)]
 
         Task<CarteiraResponse> ObterCarteiraAsync(int usuarioId,string moedaPretendida);
+        Task<string> LoginAsync(string email, string password);
     }
 }

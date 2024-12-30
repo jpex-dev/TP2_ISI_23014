@@ -10,6 +10,8 @@ namespace ServicoWCFSoap
     {
         [OperationContract]
        Task<CarteiraResponse> ObterCarteira(int usuarioId,string moedaPretendida = null);
+        [OperationContract]
+        string Login(string email, string senha); 
     }
 
     [DataContract] // Define que esta classe será usada em serialização WCF

@@ -13,6 +13,9 @@ using System.Configuration;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ServicoWCFSoap
 {
@@ -150,6 +153,61 @@ namespace ServicoWCFSoap
                 throw new ApplicationException($"Erro ao obter taxa de conversão: {ex.Message}");
             }
         }
+        public string Login(string email, string password)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
+                    // Verificar se o usuário existe e se a senha está correta
+                    string query = "SELECT UserId, Nome FROM Utilizadores WHERE Email = @Email AND password = @password";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@password", password); // Assuma que a senha é armazenada com hash
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int userId = reader.GetInt32(0);
+                                string nome = reader.GetString(1);
+
+                                // Gerar o token JWT
+                                return GenerateJwtToken(userId, nome);
+                            }
+                        }
+                    }
+                }
+
+                throw new FaultException("Credenciais inválidas.");
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException($"Erro ao realizar login: {ex.Message}");
+            }
+        }
+
+        private string GenerateJwtToken(int userId, string nome)
+        {
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("sua-chave-secreta-de-128-bits-aqui"));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                    new Claim("nome", nome),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

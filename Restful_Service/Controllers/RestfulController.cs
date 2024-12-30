@@ -32,5 +32,6 @@ namespace Restful_Service.Controllers
                 return StatusCode(500, $"Erro ao obter carteira: {ex.Message}");
             }
         }
+       
     }
 }

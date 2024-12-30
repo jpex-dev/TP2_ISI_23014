@@ -69,5 +69,21 @@ namespace Restful_Service.Services
                 }
             }
         }
+        public async Task<string> LoginAsync(string email, string senha)
+        {
+            try
+            {
+                var binding = new BasicHttpBinding();
+                var endpoint = new EndpointAddress(new Uri(_wcfEndpoint));
+                var channelFactory = new ChannelFactory<ServicoWCFSoap.ICarteiraService>(binding, endpoint);
+
+                var serviceClient = channelFactory.CreateChannel();
+                return await Task.FromResult(serviceClient.Login(email, senha));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Erro ao comunicar com o WCF: {ex.Message}");
+            }
+        }
     }
 }
